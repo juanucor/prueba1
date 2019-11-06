@@ -1,0 +1,46 @@
+﻿window.OneSignal = window.OneSignal || [];
+OneSignal.push(function () {
+    OneSignal.SERVICE_WORKER_UPDATER_PATH = "OneSignalSDKUpdaterWorker.js.php";
+    OneSignal.SERVICE_WORKER_PATH = "OneSignalSDKWorker.js.php";
+    OneSignal.SERVICE_WORKER_PARAM = { scope: '/' };
+
+    OneSignal.setDefaultNotificationUrl("http://www.nationalgeographic.com.es");
+    var oneSignal_options = {
+        wordpress: false,
+        appId: "790b32d3-d953-40b2-a7b5-7d523ede0fd6",
+        //safari_web_id: "web.onesignal.auto.2c5a7aa8-83b4-45ba-8e8f-e5cd6a2881a0",
+        autoregister: true,
+        subdomainName: "nationalgeographic",
+        welcomeNotification: {
+            title: "Suscripción activada",
+			message: "Muchas gracias por apuntarte a nuestras notificaciones! En breves comenzarás a recibir las mejores noticias de National Geographic en tu dispositivo!",
+            url: "http://www.nationalgeographic.com.es"
+        },
+        promptOptions: {
+            actionMessage: "¿Quieres recibir las mejores noticias de National Geographic en tu dispositivo?",
+            exampleNotificationTitleDesktop: "Noticia destacada",
+            exampleNotificationMessageDesktop: "Serás la 1ª en enterarte de todo",
+            exampleNotificationTitleMobile: "Noticia destacada",
+            exampleNotificationMessageMobile: "Serás el 1º en enterarte de todo",
+            exampleNotificationCaption: "..y podrás desactivarlas cuando quieras..",
+            acceptButtonText: "SÍ, QUIERO",
+            cancelButtonText: "No, gracias",
+            siteName: "National Geographic España",
+            autoAcceptTitle: "National Geographic España",
+            showCredit: false
+        },
+        notifyButton: {
+            enable: false
+        }
+    };
+
+    window._oneSignalInitOptions = oneSignal_options;
+
+    OneSignal.init(window._oneSignalInitOptions);
+});
+
+window.addEventListener("load", function (event) {
+    OneSignal.push(function () {
+        OneSignal.showHttpPrompt();
+    });
+});

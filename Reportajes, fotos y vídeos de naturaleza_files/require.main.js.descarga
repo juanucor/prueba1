@@ -1,0 +1,112 @@
+﻿// First bind log
+var log_first_ms = new Date().getTime();
+var log_last_ms = log_first_ms;
+log = function (txt) {
+    if (typeof MGRDEBUG !== "undefined" && MGRDEBUG) {
+        var current_ms = new Date().getTime();
+        if (log_last_ms === 0) log_last_ms = current_ms;
+        console.log(current_ms - log_first_ms + "ms > " + txt + " (" + (current_ms - log_last_ms) + "ms)");
+        log_last_ms = current_ms;
+    }
+};
+
+var mgr = mgr || {};
+mgr.version = mgr.version || 1;
+mgr.baseUrl = mgr.baseUrl || '/Content/js/' + mgr.version;
+
+mgr.cdns = mgr.cdns || {};
+mgr.libs = mgr.libs || {};
+mgr.shim = mgr.shim || {};
+
+// CDNS
+mgr.cdns["jsd"] = mgr.cdns["jsd"] || "https://cdn.jsdelivr.net/";
+mgr.cdns["cdnjs"] = mgr.cdns["cdnjs"] || "https://cdnjs.cloudflare.com/ajax/libs/";
+mgr.cdns["unpkg"] = mgr.cdns["unpkg"] || "https://unpkg.com/";
+mgr.cdns["gapis"] = mgr.cdns["gapis"] || "https://ajax.googleapis.com/ajax/libs/";
+mgr.cdns["rba"] = mgr.cdns["rba"] || "https://static.rba.nom.es/";
+
+// LIBRARIES
+mgr.libs["jquery"] = mgr.libs["jquery"] || [mgr.cdns.cdnjs + "jquery/2.0.0/jquery.min", mgr.cdns.jsd + "jquery/2.0.0/jquery.min", "lib/jquery-2.1.3.min"];
+mgr.libs["gpt"] = mgr.libs["gpt"] || ["https://www.googletagservices.com/tag/js/gpt"];
+mgr.libs["modernizr"] = mgr.libs["modernizr"] || [mgr.cdns.jsd + "modernizr/3.3.1/modernizr.min", mgr.cdns.cdnjs + "modernizr/2.8.3/modernizr.min", "lib/modernizr"];
+mgr.libs["facebook"] = mgr.libs["facebook"] || ["//connect.facebook.net/en_US/sdk"];
+mgr.libs["jquery-cookie"] = mgr.libs["jquery-cookie"] || [mgr.cdns.cdnjs + "jquery-cookie/1.4.1/jquery.cookie.min"];
+mgr.libs["jqueryui"] = mgr.libs["jqueryui"] || ["lib/jquery-ui.min"];
+mgr.libs["jqueryui-tooltip"] = mgr.libs["jqueryui-tooltip"] || ["lib/jquery-ui.tooltip.min"];
+mgr.libs["browser"] = mgr.libs["browser"] || ["lib/jquery.browser.min"];
+mgr.libs["timers"] = mgr.libs["timers"] || ["lib/jquery.timers.min"];
+mgr.libs["scrollfix"] = mgr.libs["scrollfix"] || ["lib/scrollfix"];
+mgr.libs["throttle"] = mgr.libs["throttle"] || [mgr.cdns.cdnjs + 'jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.min', 'lib/jquery.ba-throttle-debounce'];
+mgr.libs["appear"] = mgr.libs["appear"] || [mgr.cdns.cdnjs + "jquery.appear/0.3.3/jquery.appear.min", "lib/jquery.appear-0.3.3.min"];
+mgr.libs["magnific-popup"] = mgr.libs["magnific-popup"] || [mgr.cdns.jsd + "jquery.magnific-popup/1.0.0/jquery.magnific-popup.min", "lib/jquery.magnific-popup.min"];
+mgr.libs["typeahead"] = mgr.libs["typeahead"] || [mgr.cdns.jsd + "typeahead.js/0.11.1/typeahead.bundle.min", "lib/typeahead.bundle.min"];
+mgr.libs["bloodhound"] = mgr.libs["bloodhound"] || [mgr.cdns.jsd + "typeahead.js/0.11.1/typeahead.bundle.min", "lib/typeahead.bundle.min"];
+mgr.libs["flexslider"] = mgr.libs["flexslider"] || [mgr.cdns.jsd + "flexslider/2.5.0/jquery.flexslider-min", mgr.cdns.cdnjs + "flexslider/2.5.0/jquery.flexslider-min", "lib/jquery.flexslider-min"];
+mgr.libs["owlcarousel"] = mgr.libs["owlcarousel"] || ["min/owl.carousel.min"]; //[mgr.cdns.cdnjs + "OwlCarousel2/2.2.0/owl.carousel.min", "owl.carousel"];
+mgr.libs["audiojs"] = mgr.libs["audiojs"] || [mgr.cdns.jsd + "audiojs/0.1/audio.min", "lib/audiojs/audio.min"];
+mgr.libs["slick"] = mgr.libs["slick"] || [mgr.cdns.jsd + "jquery.slick/1.6.0/slick.min", "lib/slick.min"];
+mgr.libs["videojs"] = mgr.libs["videojs"] || [mgr.cdns.cdnjs + "video.js/4.4.3/video", mgr.cdns.rba + "videojs/js/video"];
+mgr.libs["videojs-vast-cli"] = mgr.libs["videojs-vast-cli"] || [mgr.cdns.rba + "videojs/js/vast-client"];
+mgr.libs["videojs-ads"] = mgr.libs["videojs-ads"] || [mgr.cdns.rba + "videojs/js/video.ads", mgr.cdns.cdnjs + "videojs-contrib-ads/4.1.4/videojs.ads"];
+mgr.libs["videojs-vast"] = mgr.libs["videojs-vast"] || [mgr.cdns.rba + "videojs/js/videojs.vast"];
+mgr.libs["videojs-watermark"] = mgr.libs["videojs-watermark"] || [mgr.cdns.rba + "videojs/js/videojs.watermark"];
+mgr.libs["videojs-bundle"] = mgr.libs["videojs-bundle"] || [mgr.cdns.rba + "videojs/js/videojs.bundle_1.2"];
+mgr.libs["mapbox-gl"] = mgr.libs["mapbox-gl"] || ["https://api.tiles.mapbox.com/mapbox-gl-js/v1.1.0/mapbox-gl"];
+
+mgr.libs["lazysizes"] = mgr.libs["lazysizes"] || [mgr.cdns.jsd + "lazysizes/3.0.0/lazysizes-umd.min", "lib/lazysizes.min"];
+mgr.libs["lazysizes-aspectratio"] = mgr.libs["lazysizes-aspectratio"] || [mgr.cdns.jsd + "lazysizes/3.0.0/plugins/aspectratio/ls.aspectratio.min", "lib/ls.aspectratio"];
+mgr.libs["juxtapose"] = mgr.libs["juxtapose"] || ["https://cdn.knightlab.com/libs/juxtapose/latest/js/juxtapose.min"];
+
+mgr.libs["cmp"] = mgr.libs["cmp"] || ["https://quantcast.mgr.consensu.org/cmp"];
+
+// LIB INTERNALS
+
+mgr.libs["mangiro"] = mgr.libs["mangiro"] || ["min/mangiro.min"];
+mgr.libs["mangiro.ads"] = mgr.libs["mangiro.ads"] || ["min/mangiro.ads.min"];
+mgr.libs["mangiro.cmd"] = mgr.libs["mangiro.cmd"] || ["min/mangiro.cmd.min"];
+mgr.libs["mangiro.promotion"] = mgr.libs["mangiro.promotion"] || ["min/mangiro.promotion.min"];
+mgr.libs["mangiro.floatingbar"] = mgr.libs["mangiro.floatingbar"] || ["min/mangiro.floatingbar.min"];
+mgr.libs["mangiro.companion"] = mgr.libs["mangiro.companion"] || ["min/mangiro.companion.min"];
+mgr.libs["mangiro.viewability"] = mgr.libs["mangiro.viewability"] || ["min/mangiro.viewability.min"];
+mgr.libs["mangiro.gallery"] = mgr.libs["mangiro.gallery"] || ["min/mangiro.gallery.min"];
+mgr.libs["mangiro.gallery.flex"] = mgr.libs["mangiro.gallery.flex"] || ["min/mangiro.gallery.flex-0.2.0.min"];
+mgr.libs["mangiro.gallery.owl"] = mgr.libs["mangiro.gallery.owl"] || ["min/mangiro.gallery.owl-0.2.0.min"];
+mgr.libs["mangiro.gallery.slick"] = mgr.libs["mangiro.gallery.slick"] || ["min/mangiro.gallery.slick-0.1.0.min"];
+mgr.libs["mgrslick.config"] = mgr.libs["mgrslick.config"] || ["min/mgrslick.config.min"];
+mgr.libs["mangiro.scroll"] = mgr.libs["mangiro.scroll"] || ["min/mangiro.scroll.min"];
+mgr.libs["mangiro.quiz"] = mgr.libs["mangiro.quiz"] || ["min/mangiro.quiz.min"];
+mgr.libs["mangiro.videojs"] = mgr.libs["mangiro.videojs"] || ["min/mangiro.videojs.min"];
+mgr.libs["mangiro.cmp"] = mgr.libs["mangiro.cmp"] || ["min/mangiro.cmp.min"];
+
+// SHIM
+mgr.shim["flexslider"] = mgr.shim["flexslider"] || ["jquery"];
+mgr.shim["timers"] = mgr.shim["timers"] || ["jquery"];
+mgr.shim["appear"] = mgr.shim["appear"] || ["jquery"];
+mgr.shim["scrollfix"] = mgr.shim["scrollfix"] || ["jquery"];
+mgr.shim["jquery-cookie"] = mgr.shim["jquery-cookie"] || ["jquery"];
+mgr.shim["mangiro.quiz"] = mgr.shim["mangiro.quiz"] || ["jquery-cookie", "appear", "jquery"];
+//mgr.shim["mgr-photogallery"] = ["flexslider", "jquery"];
+//mgr.shim['mangiro.gallery'] = { exports: 'Mangiro' };
+mgr.shim["videojs-vast-cli"] = mgr.shim["videojs-vast-cli"] || ["videojs"];
+mgr.shim["videojs-ads"] = mgr.shim["videojs-ads"] || ["videojs"];
+mgr.shim["videojs-vast"] = mgr.shim["videojs-vast"] || ["videojs", "videojs-ads"];
+mgr.shim['facebook'] = mgr.shim['facebook'] || { exports: 'FB' };
+mgr.shim['typeahead'] = mgr.shim['typeahead'] || {
+    deps: ['jquery'],
+    init: function($) {
+        return require.s.contexts._.registry['typeahead.js'].factory($);
+    }
+};
+mgr.shim['bloodhound'] = mgr.shim['bloodhound'] || {
+    deps: ['jquery'],
+    exports: 'Bloodhound'
+};
+
+require.config({
+    "baseUrl": mgr.baseUrl,
+    "paths": mgr.libs,
+    "shim": mgr.shim
+});
+
+// Loads the main app which starts everything
+require(["min/require.app.min"]);
